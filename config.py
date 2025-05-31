@@ -1,0 +1,26 @@
+# config.py
+
+# Simulation parameters
+NUM_VEHICLES = 500
+NUM_SBS = 24
+NUM_MBS = 1
+SIM_TIME = 100  # seconds
+
+# Base station capacities (GHz and MHz)
+SBS_CPU_CAP = 1000
+MBS_CPU_CAP = 4000
+CORE_CPU_CAP = 16000
+
+SBS_BW = 400
+MBS_BW = 400
+CORE_BW = 2000
+
+# Bidding
+BASE_BID_MULTIPLIER = 0.5
+BID_INCREMENT = 1.1
+MAX_AUCTION_ROUNDS = 3
+
+# Task ranges
+TASK_DATA_MB = (5, 20)
+TASK_CPU_CYCLES = (0.2e9, 1.0e9)
+TASK_DEADLINE_MS = (5, 50)
