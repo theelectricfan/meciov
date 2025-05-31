@@ -21,11 +21,29 @@ class BaseStation:
         self.revenue = 0
 
     def run_auction_round(self):
-        """
-        Process all received bids using the knapsack selection.
-        Each bid: {id, price, cpu, bw}
-        """
-        winners = multidimensional_knapsack(self.bids_received, self.cpu_capacity, self.bw_capacity)
+        valid_bids = []
+
+        for bid in self.bids_received:
+            task = bid['vehicle'].task
+            cpu_demand = bid['cpu']  # in GHz·s
+            data_size = bid['bw']    # in Mbit
+
+            # Assume fixed resource frequency per SBS
+            cpu_freq = 50.0  # GHz
+            bandwidth = 1000.0  # Mbps
+
+            # Delay estimations
+            exec_delay_ms = (task.cpu_cycles / (cpu_freq * 1e9)) * 1000
+            tx_delay_ms = (task.data_size / (bandwidth * 1e6)) * 1000
+            total_delay_ms = exec_delay_ms + tx_delay_ms
+
+            if total_delay_ms <= task.deadline:
+                valid_bids.append(bid)
+            else:
+                print(f"⏱️ Rejected Vehicle {bid['id']} due to delay {total_delay_ms:.2f} ms > {task.deadline:.2f} ms")
+
+        winners = multidimensional_knapsack(valid_bids, self.cpu_capacity, self.bw_capacity)
         self.assigned_tasks = winners
         self.revenue = sum([b['price'] for b in winners])
         return winners
+

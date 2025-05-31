@@ -40,6 +40,8 @@ class AuctionController:
                     'vehicle': v
                 }
 
+                print(f"Vehicle {v.id} bidding ₹{bid_price:.2f} to BS-{bs.id}")
+
                 bs.receive_bid(bid)
 
             # Evaluate and assign winners

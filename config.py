@@ -7,11 +7,11 @@ NUM_MBS = 1
 SIM_TIME = 100  # seconds
 
 # Base station capacities (GHz and MHz)
-SBS_CPU_CAP = 1000
+SBS_CPU_CAP = 10000
 MBS_CPU_CAP = 4000
 CORE_CPU_CAP = 16000
 
-SBS_BW = 400
+SBS_BW = 2000
 MBS_BW = 400
 CORE_BW = 2000
 
