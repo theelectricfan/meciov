@@ -9,6 +9,10 @@ class Vehicle:
         self.id = id
         self.task = task
         self.bid_history = []
+        self.assigned = False               # ✅ Add this
+        self.assigned_sbs = None            # ✅ And this
+        self.satisfaction = 0               # (set via AHP)
+
 
     def compute_base_bid(self, cpu_price, bw_price, metrics):
         # metrics = {'price': x, 'ber': y, 'retransmissions': z}

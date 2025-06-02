@@ -44,6 +44,11 @@ class BaseStation:
 
         winners = multidimensional_knapsack(valid_bids, self.cpu_capacity, self.bw_capacity)
         self.assigned_tasks = winners
+        for winner in winners:
+            v = winner['vehicle']
+            v.assigned = True
+            v.assigned_sbs = self.id
+
         self.revenue = sum([b['price'] for b in winners])
         return winners
 
