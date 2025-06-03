@@ -19,14 +19,20 @@ class AuctionController:
         for round_num in range(self.rounds):
             print(f"\n🔁 Auction Round {round_num+1}")
 
-            for v in self.vehicles:
+            for v in self.vehicles: 
                 if v.id not in self.unassigned:
                     continue
 
                 bs = random.choice(self.base_stations)
 
                 # Dummy BER and retrans values — can be randomized or modeled
-                metrics = {'price': 1, 'ber': 0.01, 'retrans': 1}
+                metrics = {
+                    'price': random.uniform(0.3, 3.0),
+                    'ber': random.uniform(0.001, 0.05),
+                    'retrans': random.randint(0, 6)
+                }
+
+
                 bid_price = v.generate_bid(round_num, self.cpu_price, self.bw_price, metrics)
 
                 bid = {
@@ -36,6 +42,8 @@ class AuctionController:
                     'bw': v.task.data_size / 1e6,    # Mbit
                     'vehicle': v
                 }
+
+                print(f"🎁 Vehicle {v.id} bids for {bid_price:.2f} at Base Station {bs.id}")
 
                 bs.receive_bid(bid)
 
